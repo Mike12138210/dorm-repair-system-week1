@@ -1,13 +1,15 @@
 package com.Mike12138210.pojo;
 
+import com.Mike12138210.dao.RepairOrderMapper;
+
 import java.time.LocalDateTime;
 
-public class RepairOrder {
+public class RepairOrder{
     private Integer id;
     private Integer studentId;
     private String deviceType;
     private String description;
-    private String status;           // pending, processing, completed, cancelled
+    private String status;           // 等待中, 进行中, 已完成, 已取消
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 

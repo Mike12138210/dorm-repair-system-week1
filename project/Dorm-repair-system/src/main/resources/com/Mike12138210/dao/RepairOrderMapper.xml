@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Mike12138210.dao.RepairOrderMapper">
+
+    <!-- 结果映射：将数据库字段和 Java 属性对应起来（如果字段名和属性名完全一致，可以省略） -->
+    <resultMap id="orderResultMap" type="RepairOrder">
+        <id property="id" column="id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="deviceType" column="device_type"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 插入报修单，自动回填自增主键 -->
+    <insert id="insertOrder" parameterType="RepairOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO repair_order (student_id, device_type, description, status, create_time, update_time)
+        VALUES (#{studentId}, #{deviceType}, #{description}, #{status}, NOW(), NOW())
+    </insert>
+
+    <!-- 根据学生ID查询报修单列表 -->
+    <select id="selectByStudentId" resultMap="orderResultMap">
+        SELECT * FROM repair_order WHERE student_id = #{studentId} ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据ID查询单个报修单 -->
+    <select id="selectById" resultMap="orderResultMap">
+        SELECT * FROM repair_order WHERE id = #{id}
+    </select>
+
+    <!-- 更新报修单（例如修改状态、描述等） -->
+    <update id="updateOrder" parameterType="RepairOrder">
+        UPDATE repair_order
+        SET status = #{status},
+            description = #{description},
+            device_type = #{deviceType},
+            update_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 管理员查询所有报修单，支持按状态筛选 -->
+    <select id="selectAll" resultMap="orderResultMap">
+        SELECT * FROM repair_order
+        <where>
+            <if test="status != null and status != ''">
+                status = #{status}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 管理员删除报修单 -->
+    <delete id="deleteOrder">
+        DELETE FROM repair_order WHERE id = #{id}
+    </delete>
+
+</mapper>

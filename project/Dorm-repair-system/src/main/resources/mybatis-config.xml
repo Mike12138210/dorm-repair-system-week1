@@ -14,7 +14,7 @@
             <transactionManager type="JDBC"/>  <!-- 事务管理器 -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>  <!-- 驱动名称 -->
-                <property name="url" value="jdbc:mysql://localhost:3306/dorm_repair?useSSL=false&amp;serverTimezone=UTC"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/dorm_repair?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8"/>
                 <property name="username" value="root"/>
                 <property name="password" value="12345"/>
             </dataSource>
@@ -25,6 +25,6 @@
     <mappers>
         <!--加载sql映射文件-->
         <mapper resource="com/Mike12138210/dao/UserMapper.xml"/>
-        <!-- 以后如果有其他Mapper，继续加 -->
+        <mapper resource="com/Mike12138210/dao/RepairOrderMapper.xml"/>
     </mappers>
 </configuration>
