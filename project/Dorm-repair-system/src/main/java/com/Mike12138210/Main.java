@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args){
         while(true){
             if(currentUser == null){
-                ShowLoginMenu();
+                ShowMainMenu();
             }else {
                 if("student".equals(currentUser.getRole())){
                     ShowStudentMenu();
@@ -29,7 +29,7 @@ public class Main {
         }
     }
 
-    private static void ShowLoginMenu(){
+    private static void ShowMainMenu(){
         System.out.println("===========================");
         System.out.println("\uD83C\uDFE0 宿舍报修管理系统");
         System.out.println("===========================");
@@ -37,20 +37,19 @@ public class Main {
         System.out.println("2.注册");
         System.out.println("3.退出");
 
-        while(true){
+        loop:while(true){
             System.out.print("请选择操作（输入 1-3）：");
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.nextLine().trim();
             switch (choice){
-                case 1:
+                case "1":
                     while(!login()){
                     }
                     return;
-                case 2:
+                case "2":
                     register();
                     return;
-                case 3:
-                    System.exit(0);
+                case "3":
+                    System.exit(0); // break loop;
                 default:
                     System.out.println("输入错误，请输入1,2或3。");
             }
@@ -110,14 +109,14 @@ public class Main {
             String account = null;
             if("student".equals(role)){
                 System.out.print("请输入学号：");
-                account = sc.nextLine();
+                account = sc.nextLine().trim();
                 if (!account.startsWith("3125") && !account.startsWith("3225")) {
                     System.out.println("学生账号必须以3125或3225开头，注册失败，请重新输入。");
                     continue;
                 }
             }else{
                 System.out.print("请输入工号：");
-                account = sc.nextLine();
+                account = sc.nextLine().trim();
 
                 if(!account.startsWith("0025")){
                     System.out.println("管理员账号必须以0025开头，注册失败，请重新输入。");
@@ -173,25 +172,24 @@ public class Main {
             System.out.println("====================");
 
             System.out.print("请选择操作（输入 1-6）：");
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.next().trim();
             switch (choice){
-                case 1:
+                case "1":
                     bindDorm();
                     break;
-                case 2:
+                case "2":
                     createOrder();
                     break;
-                case 3:
+                case "3":
                     listOrders();
                     break;
-                case 4:
+                case "4":
                     cancelOrder();
                     break;
-                case 5:
+                case "5":
                     changePassword();
                     break;
-                case 6:
+                case "6":
                     currentUser = null;
                     return;
                 default:
@@ -203,9 +201,9 @@ public class Main {
     private static void bindDorm(){
         System.out.println("===== 绑定/修改宿舍 =====");
         System.out.print("请输入宿舍楼（如西4）：");
-        String building = sc.nextLine();
+        String building = sc.nextLine().trim();
         System.out.print("请输入房间号（如101）：");
-        String room = sc.nextLine();
+        String room = sc.nextLine().trim();
 
         currentUser.setBuilding(building);
         currentUser.setRoom(room);
@@ -228,9 +226,9 @@ public class Main {
         System.out.println("===== 创建报修单 =====");
 
         System.out.print("请选择设备类型（如水龙头、灯泡等）：");
-        String deviceType = sc.nextLine();
+        String deviceType = sc.nextLine().trim();
         System.out.print("请填写问题描述：");
-        String description = sc.nextLine();
+        String description = sc.nextLine().trim();
 
         RepairOrder order = new RepairOrder();
         order.setStudentId(currentUser.getId());
@@ -362,25 +360,24 @@ public class Main {
             System.out.println("====================");
 
             System.out.print("请选择操作（输入 1-6）：");
-            int choice = sc.nextInt();
-            sc.nextLine();
+            String choice = sc.next().trim();
             switch (choice){
-                case 1:
+                case "1":
                     listAllOrders();
                     break;
-                case 2:
+                case "2":
                     viewOrderDetail();
                     break;
-                case 3:
+                case "3":
                     updateOrderStatus();
                     break;
-                case 4:
+                case "4":
                     deleteOrder();
                     return;
-                case 5:
+                case "5":
                     changePassword();
                     break;
-                case 6:
+                case "6":
                     currentUser = null;
                     return;
                 default:

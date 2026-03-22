@@ -2,6 +2,7 @@ package com.Mike12138210.pojo;
 
 // Alt + 鼠标左键可整列编辑
 public class User {
+    // id,account,password,role,building,room
     private Integer id;
     private String account;      // 学号/工号
     private String password;

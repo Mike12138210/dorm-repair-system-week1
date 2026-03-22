@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface RepairOrderMapper {
+    // 插入新的报修单
     int insertOrder(RepairOrder order);
 
     // 根据学生ID查询该学生的所有报修单
